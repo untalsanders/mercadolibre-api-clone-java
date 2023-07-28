@@ -1,13 +1,11 @@
 plugins {
     id 'java'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id 'org.springframework.boot' version '2.5.2'
+    id 'org.springframework.boot' version '2.5.15'
 }
 
 group = 'com.sandersgutierrez'
 version = '0.1.0'
-sourceCompatibility = 11
-targetCompatibility = 11
 
 repositories {
     mavenCentral()
