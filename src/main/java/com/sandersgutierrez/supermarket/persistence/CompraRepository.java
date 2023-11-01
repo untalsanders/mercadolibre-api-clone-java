@@ -13,11 +13,16 @@ import java.util.Optional;
 
 @Repository
 public class CompraRepository implements PurchaseRepository {
-    @Autowired
-    private CompraCrudRepository compraCrudRepository;
+
+    private final CompraCrudRepository compraCrudRepository;
+
+    private final PurchaseMapper mapper;
 
     @Autowired
-    private PurchaseMapper mapper;
+    public CompraRepository(CompraCrudRepository compraCrudRepository, PurchaseMapper mapper) {
+        this.compraCrudRepository = compraCrudRepository;
+        this.mapper = mapper;
+    }
 
     @Override
     public List<Purchase> getAll() {
@@ -27,7 +32,7 @@ public class CompraRepository implements PurchaseRepository {
     @Override
     public Optional<List<Purchase>> getByClient(int clientId) {
         return compraCrudRepository.findByClienteId(clientId)
-                .map(purchases -> mapper.toPurchases(purchases));
+                .map(mapper::toPurchases);
     }
 
     @Override

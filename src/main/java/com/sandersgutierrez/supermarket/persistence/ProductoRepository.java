@@ -14,11 +14,15 @@ import java.util.Optional;
 @Repository
 public class ProductoRepository implements ProductRepository {
 
-    @Autowired
-    private ProductoCrudRepository productoCrudRepository;
+    private final ProductoCrudRepository productoCrudRepository;
+
+    private final ProductMapper mapper;
 
     @Autowired
-    private ProductMapper mapper;
+    public ProductoRepository(ProductoCrudRepository productoCrudRepository, ProductMapper mapper) {
+        this.productoCrudRepository = productoCrudRepository;
+        this.mapper = mapper;
+    }
 
     @Override
     public List<Product> getAll() {
@@ -35,11 +39,11 @@ public class ProductoRepository implements ProductRepository {
     @Override
     public Optional<List<Product>> getScarseProducts(int quantity) {
         Optional<List<Producto>> productos = productoCrudRepository.findByExistenciaIsLessThanAndEstado(quantity, true);
-        return productos.map(prods -> mapper.toProducts(prods));
+        return productos.map(mapper::toProducts);
     }
 
     public Optional<Product> getProduct(int productId) {
-        return productoCrudRepository.findById(productId).map(producto -> mapper.toProduct(producto));
+        return productoCrudRepository.findById(productId).map(mapper::toProduct);
     }
 
     @Override
