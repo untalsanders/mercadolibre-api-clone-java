@@ -37,4 +37,9 @@ public class Category {
     public void setActive(boolean active) {
         this.active = active;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Category: {%d, %s, %s, %s}", categoryId, name, description, active ? "Active" : "Inactive");
+    }
 }

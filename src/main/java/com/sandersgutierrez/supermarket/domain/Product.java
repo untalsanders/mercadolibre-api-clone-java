@@ -65,6 +65,11 @@ public class Product {
         this.active = active;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Product: {%d, %d, %s, %s, %s, %s}", productId, categoryId, name, price, stock, active ? "Active" : "Inactive");
+    }
+
     public Category getCategory() {
         return category;
     }
